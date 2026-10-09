@@ -1,0 +1,58 @@
+{
+  "titulo": "Quem é o melhor jogador de todos os tempos?",
+  "candidatos": [
+    {
+      "id": "messi",
+      "numero": 10,
+      "nome": "Lionel Messi",
+      "cargo": "Atacante argentino — 8 Bolas de Ouro e campeão mundial em 2022",
+      "slogan": "O gênio da bola.",
+      "cor": "#75AADB",
+      "foto": "img/messi.svg",
+      "votosSimulados": 0,
+      "propostas": [
+        { "titulo": "Dribles mágicos", "texto": "Capacidade única de passar por marcadores com a bola colada no pé." },
+        { "titulo": "Visão de jogo", "texto": "Passes geniais que poucos enxergam, criando gols do nada." },
+        { "titulo": "Títulos históricos", "texto": "Copa do Mundo, 4 Champions League, 10 La Liga e muito mais." }
+      ]
+    },
+    {
+      "id": "cristiano",
+      "numero": 7,
+      "nome": "Cristiano Ronaldo",
+      "cargo": "Atacante português — 5 Bolas de Ouro e maior artilheiro da história",
+      "slogan": "A máquina de gols.",
+      "cor": "#CE1126",
+      "foto": "img/cristiano.svg",
+      "votosSimulados": 0,
+      "propostas": [
+        { "titulo": "Poder físico", "texto": "Velocidade, força e impulsão que dominam qualquer defesa." },
+        { "titulo": "Mentalidade vencedora", "texto": "Determinação inabalável para sempre buscar o gol decisivo." },
+        { "titulo": "Artilheiro supremo", "texto": "Recordista de gols em Champions League e seleções nacionais." }
+      ]
+    },
+    {
+      "id": "neymar",
+      "numero": 11,
+      "nome": "Neymar Jr",
+      "cargo": "Atacante brasileiro — Ídolo do Santos, Barcelona e seleção brasileira",
+      "slogan": "O jogo bonito em pessoa.",
+      "cor": "#FFDF00",
+      "foto": "img/neymar.svg",
+      "votosSimulados": 0,
+      "propostas": [
+        { "titulo": "Habilidade pura", "texto": "Dribles desconcertantes e lances de pura genialidade brasileira." },
+        { "titulo": "Decisivo em finais", "texto": "Gols e assistências nos momentos mais importantes." },
+        { "titulo": "Carisma e alegria", "texto": "Traz a diversão e a magia do futebol brasileiro para o mundo." }
+      ]
+    }
+  ],
+  "branco": {
+    "id": "branco",
+    "numero": "—",
+    "nome": "Nenhum deles",
+    "cor": "#5F7066",
+    "foto": "img/branco.svg",
+    "votosSimulados": 0
+  }
+}

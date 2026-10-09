@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quem é o Melhor? | Votação</title>
+  <meta name="theme-color" content="#0f4128">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <!-- DNS-PREFETCH: o único domínio externo é o do Google Fonts. Resolver o DNS antes
+       poupa alguns milissegundos quando o navegador achar a fonte. -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+  <!-- PRELOAD: recursos críticos que o navegador só descobriria tarde.
+       O JSON é pedido por JavaScript; o desenho do campo é citado dentro do CSS. -->
+  <link rel="preload" href="data/candidatos.json" as="fetch" type="application/json" crossorigin>
+  <link rel="preload" href="img/campo.svg" as="image">
+
+  <!-- PREFETCH: páginas que a pessoa provavelmente abrirá a seguir. Baixadas com prioridade baixa, em tempo ocioso. -->
+  <link rel="prefetch" href="votar.html" as="document">
+  <link rel="prefetch" href="apuracao.html" as="document">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&amp;family=Big+Shoulders+Display:wght@800&amp;display=swap">
+  <script src="js/db.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body data-pagina="candidatos">
+<header class="topo">
+  <div class="topo-in">
+    <a class="marca" href="index.html">⚽ Quem é o Melhor?</a>
+    <nav class="menu" aria-label="Principal"><a href="index.html" aria-current="page">Jogadores</a><a href="votar.html">Votar</a><a href="apuracao.html">Resultado</a></nav>
+  </div>
+  <div class="faixa-status"><div><span id="chip-rede" class="chip">Verificando rede</span><span id="chip-fila" class="chip">Fila</span></div></div>
+</header>
+
+<section class="hero">
+  <div class="hero-in">
+    <p class="hero-chamada">A grande enquete do futebol mundial</p>
+    <h1>Quem é o melhor jogador de todos os tempos?</h1>
+    <p>Messi, Cristiano Ronaldo ou Neymar? Conheça os argumentos de cada lado e dê o seu voto!</p>
+    <div class="hero-acoes">
+      <a class="botao" href="#candidatos">Ver os jogadores</a>
+      <a class="botao vazado" href="votar.html">Ir direto para o voto</a>
+    </div>
+  </div>
+</section>
+<main>
+  <section class="secao" id="candidatos" style="margin-top:0">
+    <h2>Os jogadores</h2>
+    <p class="apoio">Cada um tem suas conquistas, seu estilo e seus argumentos para ser o melhor. Veja e vote!</p>
+    <div class="escalacao-grade" id="lista" aria-live="polite"></div>
+  </section>
+</main>
+<footer class="rodape"><p>Votação feita para diversão. Quem será o melhor? Você decide!</p></footer>
+<div id="aviso" role="status" aria-live="polite"></div>
+</body>
+</html>

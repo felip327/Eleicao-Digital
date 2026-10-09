@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Votar | Quem é o Melhor?</title>
+  <meta name="theme-color" content="#0f4128">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <!-- DNS-PREFETCH: o único domínio externo é o do Google Fonts. Resolver o DNS antes
+       poupa alguns milissegundos quando o navegador achar a fonte. -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+  <!-- PRELOAD: recursos críticos que o navegador só descobriria tarde.
+       O JSON é pedido por JavaScript; o desenho do campo é citado dentro do CSS. -->
+  <link rel="preload" href="data/candidatos.json" as="fetch" type="application/json" crossorigin>
+  <link rel="preload" href="img/campo.svg" as="image">
+
+  <!-- PREFETCH: páginas que a pessoa provavelmente abrirá a seguir. Baixadas com prioridade baixa, em tempo ocioso. -->
+  <link rel="prefetch" href="apuracao.html" as="document">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&amp;family=Big+Shoulders+Display:wght@800&amp;display=swap">
+  <script src="js/db.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body data-pagina="votar">
+<header class="topo">
+  <div class="topo-in">
+    <a class="marca" href="index.html">⚽ Quem é o Melhor?</a>
+    <nav class="menu" aria-label="Principal"><a href="index.html">Jogadores</a><a href="votar.html" aria-current="page">Votar</a><a href="apuracao.html">Resultado</a></nav>
+  </div>
+  <div class="faixa-status"><div><span id="chip-rede" class="chip">Verificando rede</span><span id="chip-fila" class="chip">Fila</span></div></div>
+</header>
+
+<main>
+  <h2>Votar</h2>
+  <p class="apoio" style="color:var(--muda);max-width:60ch">Escolha o melhor jogador ou vote em "Nenhum deles". Cada sessão pode votar uma única vez.</p>
+  <form id="form-voto">
+    <fieldset class="opcoes" id="opcoes"><legend>Escolha uma opção</legend></fieldset>
+    <div class="votar-acoes"><button class="botao escuro" id="btn-votar" type="submit" disabled>Revisar meu voto</button></div>
+  </form>
+  <section id="recibo" class="recibo" hidden aria-live="polite"></section>
+  <dialog id="dialogo" aria-labelledby="dialogo-titulo">
+    <h3 id="dialogo-titulo">Confirmar voto</h3>
+    <p id="dialogo-texto"></p>
+    <div class="linha-botoes">
+      <button class="botao vazado" id="dialogo-corrigir" type="button" style="color:var(--tinta)">Corrigir</button>
+      <button class="botao escuro" id="dialogo-confirmar" type="button">Confirmar voto</button>
+    </div>
+  </dialog>
+</main>
+<footer class="rodape"><p>Votação feita para diversão. Quem será o melhor? Você decide!</p></footer>
+<div id="aviso" role="status" aria-live="polite"></div>
+</body>
+</html>

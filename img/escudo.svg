@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120">
+<path d="M8 8h84v56c0 28-22 44-42 52C30 108 8 92 8 64z" fill="#17613a" stroke="#f2b90f" stroke-width="6"/>
+<path d="M50 8v108" stroke="#f1f5ec" stroke-width="3" opacity=".5"/>
+<circle cx="50" cy="44" r="20" fill="none" stroke="#f1f5ec" stroke-width="4"/>
+<path d="M50 30l10 7-4 12H44l-4-12z" fill="#f2b90f"/>
+<text x="50" y="96" text-anchor="middle" font-family="Arial Narrow,Impact,sans-serif" font-weight="700" font-size="26" fill="#f1f5ec">ECA</text>
+</svg>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel técnico | EC Alvorada</title>
+  <meta name="theme-color" content="#0f4128">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <!-- DNS-PREFETCH: o único domínio externo é o do Google Fonts. Resolver o DNS antes
+       poupa alguns milissegundos quando o navegador achar a fonte. -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+  <!-- PREFETCH: páginas que a pessoa provavelmente abrirá a seguir. Baixadas com prioridade baixa, em tempo ocioso. -->
+  <link rel="prefetch" href="index.html" as="document">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&amp;family=Big+Shoulders+Display:wght@800&amp;display=swap">
+  <script src="js/db.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body data-pagina="tecnico">
+<header class="topo">
+  <div class="topo-in">
+    <a class="marca" href="index.html"><img src="img/escudo.svg" alt="" width="38" height="38">EC Alvorada</a>
+    <nav class="menu" aria-label="Principal"><a href="index.html">Candidatos</a><a href="votar.html">Votar</a><a href="apuracao.html">Apuração</a><a href="tecnico.html" aria-current="page">Painel técnico</a></nav>
+  </div>
+  <div class="faixa-status"><div><span id="chip-rede" class="chip">Verificando rede</span><span id="chip-fila" class="chip">Fila</span></div></div>
+</header>
+
+<main>
+  <h2>Painel técnico</h2>
+  <p class="apoio" style="color:var(--muda);max-width:60ch">Mostra o que está acontecendo por baixo do site. Use junto com o DevTools (F12) na demonstração.</p>
+
+  <div class="painel-grade">
+    <div class="painel"><h3>Service Worker</h3><p class="valor" id="t-sw">Verificando</p></div>
+    <div class="painel"><h3>Rede</h3><p class="valor" id="t-rede">Verificando</p></div>
+    <div class="painel"><h3>Notificações</h3><p class="valor" id="t-notif">Verificando</p>
+      <button class="botao escuro" data-acao="ativar-notif" type="button">Permitir notificações</button></div>
+    <div class="painel"><h3>Seu voto</h3><p class="valor" id="t-voto">Verificando</p></div>
+    <div class="painel"><h3>Fila pendente (IndexedDB)</h3><ul id="t-fila"></ul>
+      <p style="margin-top:.75rem"><button class="botao escuro" data-acao="sincronizar" type="button">Sincronizar agora</button></p></div>
+    <div class="painel"><h3>Cache API</h3><ul id="t-cache"></ul></div>
+  </div>
+
+  <section class="secao">
+    <h2>Testar notificações</h2>
+    <div class="acoes">
+      <button class="botao escuro" data-acao="teste-apuracao" type="button">Notificar: Apuração disponível</button>
+      <button class="botao escuro" data-acao="teste-proposta" type="button">Notificar: Nova proposta publicada</button>
+      <button class="botao perigo" data-acao="zerar" type="button">Zerar sessão (repetir a demo)</button>
+    </div>
+  </section>
+
+  <section class="secao">
+    <h2>Roteiro de teste no DevTools</h2>
+    <ol class="roteiro">
+      <li>Abra o site com internet e navegue pelas 4 páginas. Em <code>Application &gt; Service Workers</code>, confira o status "activated". Em <code>Cache Storage</code>, veja os arquivos guardados.</li>
+      <li>Em <code>Network</code>, troque "No throttling" por <strong>Offline</strong> e recarregue (F5). O site abre, com CSS e JavaScript funcionando.</li>
+      <li>Na página inicial, os candidatos, números, fotos e propostas aparecem normalmente (vêm do cache).</li>
+      <li>Em Votar, escolha um candidato e confirme. O recibo aparece como <strong>Pendente</strong>, e a faixa do topo mostra "1 ação pendente".</li>
+      <li>Aqui no painel técnico, a fila lista o voto. Em <code>Application &gt; IndexedDB &gt; eleicao-ec-alvorada &gt; pendentes</code>, o registro também aparece.</li>
+      <li>Volte a rede para "No throttling". A sincronização roda sozinha, o recibo muda para <strong>Confirmado</strong> e a fila esvazia.</li>
+      <li>Clique em "Permitir notificações" e depois em "Notificar: Apuração disponível". A notificação do sistema aparece. Ela também aparece sozinha quando o voto offline é sincronizado.</li>
+    </ol>
+  </section>
+
+  <section class="secao">
+    <h2>Preload, prefetch e dns-prefetch</h2>
+    <div class="tabela-rolagem">
+    <table class="explica">
+      <thead><tr><th>Técnica</th><th>Onde usamos</th><th>Por que escolhemos</th></tr></thead>
+      <tbody>
+        <tr><td><code>preload</code></td><td><code>data/candidatos.json</code> e <code>img/campo.svg</code></td><td>São recursos críticos que o navegador descobre tarde: o JSON só é pedido depois que o JavaScript roda, e o desenho do campo está dentro do CSS. O preload manda baixar já, com prioridade alta, e a tela dos candidatos aparece mais rápido.</td></tr>
+        <tr><td><code>prefetch</code></td><td><code>votar.html</code> e <code>apuracao.html</code></td><td>Quem vê os candidatos vai votar em seguida, e quem vota vai ver a apuração. O prefetch baixa essas páginas em tempo ocioso, com prioridade baixa, para o próximo clique ser quase instantâneo.</td></tr>
+        <tr><td><code>dns-prefetch</code></td><td><code>fonts.googleapis.com</code> e <code>fonts.gstatic.com</code></td><td>É o único domínio de terceiros do site. Resolver o DNS antes economiza a espera na hora de buscar as fontes. É mais leve que <code>preconnect</code>, que abre a conexão inteira, e basta para um domínio secundário.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="margin-top:1rem;max-width:70ch">Depois que o Service Worker instala, as páginas e os arquivos já estão no cache e o prefetch deixa de fazer diferença. Ele ajuda na primeira visita, quando o cache ainda está sendo montado.</p>
+  </section>
+</main>
+<footer class="rodape"><p>Eleição simulada, feita para fins de estudo. Os candidatos, as propostas e o clube são fictícios.</p></footer>
+<div id="aviso" role="status" aria-live="polite"></div>
+</body>
+</html>
